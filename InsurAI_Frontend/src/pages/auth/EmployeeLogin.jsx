@@ -1,3 +1,649 @@
+
+// import React, { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import axios from "axios";
+// import { motion } from "framer-motion";
+
+// /* ======================
+//    DESIGN TOKENS
+// ====================== */
+// const theme = {
+//   bg: "#020617",
+//   surface: "rgba(15,23,42,0.65)",
+//   border: "rgba(148,163,184,0.15)",
+
+//   textPrimary: "#F8FAFC",
+//   textSecondary: "#94A3B8",
+
+//   neonBlue: "#38BDF8",
+//   neonPurple: "#818CF8",
+//   neonPink: "#F472B6",
+
+//   gradient: "linear-gradient(135deg, #38BDF8, #818CF8, #F472B6)",
+//   glow: "0 0 40px rgba(56,189,248,0.35)",
+// };
+
+// /* ======================
+//    COMPONENT
+// ====================== */
+// export default function EmployeeLogin() {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [errorEmail, setErrorEmail] = useState("");
+//   const [errorPassword, setErrorPassword] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const [showPassword, setShowPassword] = useState(false);
+
+//   const navigate = useNavigate();
+
+//   const validateEmail = (email) =>
+//     /^[a-zA-Z0-9._%+-]+@[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z]{2,})+$/.test(email);
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setErrorEmail("");
+//     setErrorPassword("");
+
+//     if (!validateEmail(email)) {
+//       setErrorEmail("Enter a valid email address");
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       const res = await axios.post("http://localhost:8080/auth/login", {
+//         email: email.trim().toLowerCase(),
+//         password,
+//       });
+
+//       const data = res.data;
+
+//       localStorage.setItem("token", data.token);
+//       localStorage.setItem("role", data.role?.toLowerCase() || "employee");
+//       localStorage.setItem("name", data.name || "");
+//       localStorage.setItem("employeeId", data.employeeId || "");
+//       localStorage.setItem("id", data.id || "");
+
+//       navigate("/employee/dashboard", { replace: true });
+//     } catch (err) {
+//       if (err.response?.status === 404)
+//         setErrorEmail("User not found");
+//       else if (err.response?.status === 401)
+//         setErrorPassword("Incorrect password");
+//       else setErrorPassword("Login failed");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div style={styles.page}>
+
+//       {/* BACKGROUND GLOW */}
+//       <div style={styles.orbBlue} />
+//       <div style={styles.orbPurple} />
+
+//       <motion.div
+//         initial={{ opacity: 0, y: 40 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.7 }}
+//         style={styles.card}
+//       >
+//         <div style={styles.brand}>
+//           Insur<span style={styles.brandAccent}>AI</span>
+//         </div>
+
+//         <h2 style={styles.title}>Employee Login</h2>
+//         <p style={styles.subtitle}>
+//           Secure access to your AI-powered insurance dashboard
+//         </p>
+
+//         <form onSubmit={handleLogin}>
+
+//           {/* EMAIL */}
+//           <div style={styles.field}>
+//             <input
+//               type="email"
+//               placeholder="Email address"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               style={{
+//                 ...styles.input,
+//                 borderColor: errorEmail ? "#DC2626" : theme.border,
+//               }}
+//             />
+//             {errorEmail && <span style={styles.error}>{errorEmail}</span>}
+//           </div>
+
+//           {/* PASSWORD */}
+//           <div style={styles.field}>
+//             <div style={{ position: "relative" }}>
+//               <input
+//                 type={showPassword ? "text" : "password"}
+//                 placeholder="Password"
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//                 style={{
+//                   ...styles.input,
+//                   paddingRight: "3rem",
+//                   borderColor: errorPassword ? "#DC2626" : theme.border,
+//                 }}
+//               />
+//               <button
+//                 type="button"
+//                 onClick={() => setShowPassword(!showPassword)}
+//                 style={styles.eye}
+//               >
+//                 {showPassword ? "🙈" : "👁️"}
+//               </button>
+//             </div>
+//             {errorPassword && <span style={styles.error}>{errorPassword}</span>}
+//           </div>
+
+//           {/* FORGOT */}
+//           <div style={styles.forgot}>
+//             <button
+//               type="button"
+//               onClick={() => navigate("/employee/forgot-password")}
+//               style={styles.linkBtn}
+//             >
+//               Forgot password?
+//             </button>
+//           </div>
+
+//           {/* SUBMIT */}
+//           <motion.button
+//             whileHover={{ scale: 1.02, boxShadow: theme.glow }}
+//             whileTap={{ scale: 0.98 }}
+//             type="submit"
+//             disabled={loading}
+//             style={styles.submit}
+//           >
+//             {loading ? "Signing in..." : "Sign in"}
+//           </motion.button>
+//         </form>
+
+//         {/* FOOTER */}
+//         <p style={styles.footer}>
+//           New employee?{" "}
+//           <Link to="/employee/register" style={styles.link}>
+//             Create account
+//           </Link>
+//         </p>
+
+//         <small style={styles.secure}>
+//           🔐 JWT Secured • Enterprise Authentication
+//         </small>
+//       </motion.div>
+//     </div>
+//   );
+// }
+
+// /* ======================
+//    STYLES
+// ====================== */
+// const styles = {
+//   page: {
+//   minHeight: "100vh",
+//   width: "100vw",
+//   background: theme.bg,
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   position: "relative",
+//   overflowX: "hidden",
+//   fontFamily: "Inter, system-ui",
+// },
+
+
+//   orbBlue: {
+//     position: "absolute",
+//     width: 400,
+//     height: 400,
+//     background: "rgba(56,189,248,0.25)",
+//     filter: "blur(140px)",
+//     top: "15%",
+//     left: "-10%",
+//   },
+
+//   orbPurple: {
+//     position: "absolute",
+//     width: 400,
+//     height: 400,
+//     background: "rgba(129,140,248,0.25)",
+//     filter: "blur(160px)",
+//     bottom: "10%",
+//     right: "-10%",
+//   },
+
+//   card: {
+//   width: "100%",
+//   maxWidth: 460,
+//   padding: "2.8rem",
+//   background: theme.surface,
+//   backdropFilter: "blur(18px)",
+//   border: `1px solid ${theme.border}`,
+//   borderRadius: 24,
+//   color: theme.textPrimary,
+//   zIndex: 2,
+//   margin: "0 auto",
+// },
+
+//   brand: {
+//     fontSize: "1.6rem",
+//     fontWeight: 800,
+//     textAlign: "center",
+//   },
+
+//   brandAccent: {
+//     background: theme.gradient,
+//     WebkitBackgroundClip: "text",
+//     WebkitTextFillColor: "transparent",
+//   },
+
+//   title: {
+//     marginTop: "1rem",
+//     fontSize: "1.8rem",
+//     textAlign: "center",
+//   },
+
+//   subtitle: {
+//     textAlign: "center",
+//     color: theme.textSecondary,
+//     marginBottom: "2rem",
+//     fontSize: "0.95rem",
+//   },
+
+//   field: {
+//     marginBottom: "1.3rem",
+//   },
+
+//   input: {
+//     width: "100%",
+//     padding: "0.9rem 1rem",
+//     borderRadius: 12,
+//     background: "rgba(2,6,23,0.6)",
+//     color: theme.textPrimary,
+//     border: `1px solid ${theme.border}`,
+//     outline: "none",
+//     fontSize: "0.95rem",
+//   },
+
+//   eye: {
+//     position: "absolute",
+//     right: 12,
+//     top: "50%",
+//     transform: "translateY(-50%)",
+//     background: "none",
+//     border: "none",
+//     color: theme.textSecondary,
+//     cursor: "pointer",
+//   },
+
+//   error: {
+//     color: "#DC2626",
+//     fontSize: "0.8rem",
+//     marginTop: "0.4rem",
+//     display: "block",
+//   },
+
+//   forgot: {
+//     textAlign: "right",
+//     marginBottom: "1.5rem",
+//   },
+
+//   linkBtn: {
+//     background: "none",
+//     border: "none",
+//     color: theme.neonBlue,
+//     cursor: "pointer",
+//     fontSize: "0.85rem",
+//   },
+
+//   submit: {
+//     width: "100%",
+//     padding: "0.9rem",
+//     borderRadius: 14,
+//     border: "none",
+//     background: theme.gradient,
+//     color: "#020617",
+//     fontWeight: 700,
+//     cursor: "pointer",
+//   },
+
+//   footer: {
+//     marginTop: "1.5rem",
+//     textAlign: "center",
+//     fontSize: "0.85rem",
+//     color: theme.textSecondary,
+//   },
+
+//   link: {
+//     color: theme.neonBlue,
+//     textDecoration: "none",
+//     fontWeight: 600,
+//   },
+
+//   secure: {
+//     display: "block",
+//     marginTop: "1rem",
+//     textAlign: "center",
+//     fontSize: "0.75rem",
+//     color: theme.textSecondary,
+//   },
+// };
+
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+
+/* ======================
+   DESIGN TOKENS
+====================== */
+const COLORS = {
+  primary: "#2563eb",
+  dark: "#020617",
+  accent: "#4ecdc4",
+  border: "#e5e7eb",
+  danger: "#dc3545",
+  light: "#f8fafc",
+};
+
+export default function EmployeeLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const re =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z]{2,})+$/;
+    return re.test(email);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorEmail("");
+    setErrorPassword("");
+
+    if (!validateEmail(email)) {
+      setErrorEmail("Please enter a valid email address");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:8080/auth/login", {
+        email: email.trim().toLowerCase(),
+        password,
+      });
+
+      const data = res.data;
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role?.toLowerCase() || "employee");
+      localStorage.setItem("name", data.name || "");
+      localStorage.setItem("employeeId", data.employeeId || "");
+      localStorage.setItem("id", data.id || "");
+
+      navigate("/employee/dashboard", { replace: true });
+    } catch (err) {
+      if (err.response?.status === 404) {
+        setErrorEmail("User not found");
+      } else if (err.response?.status === 401) {
+        setErrorPassword("Incorrect password");
+      } else {
+        setErrorPassword("Login failed. Try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div
+  className="d-flex align-items-center justify-content-center"
+  style={{
+    minHeight: "100vh",
+    width: "100vw",
+    overflowX: "hidden",
+    background:
+      "radial-gradient(circle at top, #020617, #0f172a, #020617)",
+  }}
+>
+
+      <div
+        className="card border-0 shadow-lg"
+        style={{
+          maxWidth: "1000px",
+          width: "95%",
+          borderRadius: "22px",
+          overflow: "hidden",
+          background: "rgba(255,255,255,.88)",
+          backdropFilter: "blur(14px)",
+        }}
+      >
+        <div className="row g-0">
+          {/* LEFT PANEL */}
+          <div
+            className="col-md-6 d-none d-md-flex text-white"
+            style={{
+              background:
+                "linear-gradient(135deg, #020617, #1e3a8a, #0369a1)",
+            }}
+          >
+            <div className="p-5 d-flex flex-column justify-content-between">
+              <div>
+                <h2 className="fw-bold mb-3" style={{ fontSize: "2.6rem" }}>
+                  Smart Insurance <br />
+                  <span style={{ color: COLORS.accent }}>
+                    Powered by AI
+                  </span>
+                </h2>
+                <p style={{ opacity: 0.85 }}>
+                  Access analytics, claims, and real-time insights from
+                  your enterprise dashboard.
+                </p>
+              </div>
+
+              <ul className="list-unstyled">
+                {[
+                  "AI Risk Prediction",
+                  "Secure JWT Access",
+                  "Enterprise-grade Dashboard",
+                ].map((item) => (
+                  <li key={item} className="mb-3 d-flex align-items-center">
+                    <span
+                      style={{
+                        width: 10,
+                        height: 10,
+                        background: COLORS.accent,
+                        borderRadius: "50%",
+                        marginRight: 12,
+                      }}
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <small style={{ opacity: 0.7 }}>
+                Used by 10,000+ professionals worldwide
+              </small>
+            </div>
+          </div>
+
+          {/* RIGHT PANEL */}
+          <div className="col-md-6">
+            <div className="p-4 p-md-5">
+              <div className="text-center mb-4">
+                <h3 className="fw-bold">Welcome Back</h3>
+                <p className="text-muted">
+                  Login to your InsurAI account
+                </p>
+              </div>
+
+              <form onSubmit={handleLogin}>
+                {/* EMAIL */}
+                <div className="form-floating mb-3">
+                  <input
+                    type="email"
+                    className={`form-control ${
+                      errorEmail ? "is-invalid" : ""
+                    }`}
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{
+                      background: COLORS.light,
+                      borderRadius: "12px",
+                    }}
+                  />
+                  <label>Email address</label>
+                  {errorEmail && (
+                    <div className="invalid-feedback">
+                      {errorEmail}
+                    </div>
+                  )}
+                </div>
+
+                {/* PASSWORD */}
+                <div className="form-floating mb-4 position-relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className={`form-control ${
+                      errorPassword ? "is-invalid" : ""
+                    }`}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{
+                      background: COLORS.light,
+                      borderRadius: "12px",
+                      paddingRight: "45px",
+                    }}
+                  />
+                  <label>Password</label>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      right: 14,
+                      transform: "translateY(-50%)",
+                      border: "none",
+                      background: "none",
+                      opacity: 0.6,
+                    }}
+                  >
+                    {showPassword ? "🙈" : "👁️"}
+                  </button>
+
+                  {errorPassword && (
+                    <div className="invalid-feedback">
+                      {errorPassword}
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-end mb-4">
+                  <button
+                    type="button"
+                    className="btn btn-link p-0"
+                    style={{ fontSize: "0.85rem" }}
+                    onClick={() =>
+                      navigate("/employee/forgot-password")
+                    }
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+
+                {/* BUTTON */}
+                <button
+                  type="submit"
+                  className="btn w-100 fw-semibold"
+                  disabled={loading}
+                  style={{
+                    borderRadius: "14px",
+                    padding: "14px",
+                    background:
+                      "linear-gradient(135deg, #2563eb, #0ea5e9)",
+                    color: "#fff",
+                    boxShadow:
+                      "0 12px 30px rgba(37,99,235,.35)",
+                  }}
+                >
+                  {loading ? "Signing In..." : "Sign In"}
+                </button>
+              </form>
+
+              <div className="text-center mt-4">
+                <small className="text-muted">
+                  Don’t have an account?
+                </small>
+                <br />
+                <Link to="/employee/register" className="fw-semibold">
+                  Create New Account
+                </Link>
+              </div>
+
+              <div className="text-center mt-4">
+                <small className="text-muted">
+                  🔒 Secure JWT Authentication
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import React, { useState } from "react";
 // import { useNavigate, Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -553,241 +1199,3 @@
 //     </div>
 //   );
 // }
-
-
-
-
-
-
-
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-
-export default function EmployeeLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-
-  const validateEmail = (email) => {
-    const re =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z]{2,})+$/;
-    return re.test(email);
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setErrorEmail("");
-    setErrorPassword("");
-
-    if (!validateEmail(email)) {
-      setErrorEmail("Please enter a valid email address");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const res = await axios.post("http://localhost:8080/auth/login", {
-        email: email.trim().toLowerCase(),
-        password,
-      });
-
-      const data = res.data;
-      if (!data?.token) throw new Error("Invalid login");
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role?.toLowerCase() || "employee");
-      localStorage.setItem("name", data.name || "");
-      localStorage.setItem("employeeId", data.employeeId || "");
-      localStorage.setItem("id", data.id || "");
-
-      navigate("/employee/dashboard", { replace: true });
-    } catch (err) {
-      if (err.response?.status === 404) {
-        setErrorEmail("User not found");
-      } else if (err.response?.status === 401) {
-        setErrorPassword("Incorrect password");
-      } else {
-        setErrorPassword("Login failed. Try again.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #f1f5f9, #e0e7ff)",
-        fontFamily: "'Inter', 'Segoe UI', sans-serif",
-      }}
-    >
-      <div
-        className="card border-0"
-        style={{
-          width: "100%",
-          maxWidth: "380px",
-          borderRadius: "18px",
-          background: "rgba(255,255,255,0.8)",
-          backdropFilter: "blur(16px)",
-          boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-        }}
-      >
-        <div className="p-4 p-md-5">
-          {/* Header */}
-          <div className="text-center mb-4">
-            <div
-              style={{
-                width: "60px",
-                height: "60px",
-                margin: "0 auto 14px",
-                borderRadius: "14px",
-                background:
-                  "linear-gradient(135deg, #2563eb, #6366f1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                fontSize: "22px",
-                boxShadow:
-                  "0 10px 25px rgba(99,102,241,0.35)",
-              }}
-            >
-              🔐
-            </div>
-            <h4 className="fw-bold mb-1" style={{ color: "#0f172a" }}>
-              Employee Login
-            </h4>
-            <p className="text-muted mb-0" style={{ fontSize: "0.9rem" }}>
-              Sign in to InsurAI
-            </p>
-          </div>
-
-          {/* Form */}
-          <form onSubmit={handleLogin}>
-            {/* Email */}
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Email</label>
-              <input
-                type="email"
-                className={`form-control ${
-                  errorEmail ? "is-invalid" : ""
-                }`}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                style={{
-                  borderRadius: "12px",
-                  padding: "12px 14px",
-                  background: "#f8fafc",
-                }}
-              />
-              {errorEmail && (
-                <div className="invalid-feedback">
-                  {errorEmail}
-                </div>
-              )}
-            </div>
-
-            {/* Password */}
-            <div className="mb-4">
-              <label className="form-label fw-semibold">Password</label>
-              <div className="position-relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className={`form-control ${
-                    errorPassword ? "is-invalid" : ""
-                  }`}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  style={{
-                    borderRadius: "12px",
-                    padding: "12px 44px 12px 14px",
-                    background: "#f8fafc",
-                  }}
-                />
-                <button
-                  type="button"
-                  className="btn btn-link position-absolute"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    color: "#6366f1",
-                    textDecoration: "none",
-                  }}
-                >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
-                {errorPassword && (
-                  <div className="invalid-feedback d-block">
-                    {errorPassword}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Forgot */}
-            <div className="text-end mb-3">
-              <button
-                type="button"
-                className="btn btn-link p-0"
-                style={{ color: "#6366f1", fontSize: "0.85rem" }}
-                onClick={() =>
-                  navigate("/employee/forgot-password")
-                }
-              >
-                Forgot password?
-              </button>
-            </div>
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn w-100 fw-semibold"
-              style={{
-                borderRadius: "12px",
-                padding: "12px",
-                background:
-                  "linear-gradient(135deg, #2563eb, #6366f1)",
-                color: "white",
-                boxShadow:
-                  "0 10px 25px rgba(99,102,241,0.35)",
-              }}
-            >
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
-          </form>
-
-          {/* Footer */}
-          <div className="text-center mt-4">
-            <p className="mb-1 text-muted" style={{ fontSize: "0.85rem" }}>
-              Don’t have an account?
-            </p>
-            <Link
-              to="/employee/register"
-              style={{
-                color: "#6366f1",
-                fontWeight: "600",
-                fontSize: "0.9rem",
-              }}
-            >
-              Create account
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
